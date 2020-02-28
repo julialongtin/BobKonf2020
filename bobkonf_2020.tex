@@ -102,9 +102,9 @@ ImplicitCAD Project \\ % Your institution for the title page
 
 \begin{frame}
 \titlepage % Print the title page as the first slide
-\begin{block}{Source Code}
+\begin{block}{Source to this talk}
 \begin{itemize}
-\item https://github.com/colah/ImplicitCAD/
+\item https://github.com/julialongtin/BobKonf2020.git
 \end{itemize}
 \end{block}
 \end{frame}
@@ -299,12 +299,14 @@ ImplicitCAD Project \\ % Your institution for the title page
 \begin{block}{OpenSCAD - https://openscad.org}
 \begin{itemize}
 \item Graphical Interface
+\item Written in C++
 \item GPLv2 License
 \end{itemize}
 \end{block}
 \begin{block}{OpenJSCAD - https://openjscad.org}
 \begin{itemize}
 \item Web based User Interface
+\item Writen in JavaScript
 \item MIT License
 \end{itemize}
 \end{block}
@@ -316,6 +318,7 @@ ImplicitCAD Project \\ % Your institution for the title page
 \begin{itemize}
 \item Graphical Interface, GPU required
 \item Apache License
+\item Written in C++
 \item Uses maths based on ImplicitCAD
 \end{itemize}
 \end{block}
@@ -403,7 +406,7 @@ ImplicitCAD Project \\ % Your institution for the title page
 \begin{itemize}
 \item High Performance through parallel list comprehensions
 \end{itemize}
-\includegraphics[width=1.0\textwidth, left]{2D_render_000.png}
+\includegraphics[width=1.0\textwidth, left]{2D_renderer.png}
 \end{frame}
 
 \section{CSG in SCAD}
@@ -732,19 +735,26 @@ ImplicitCAD Project \\ % Your institution for the title page
 \end{columns}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Unioning}
 \begin{columns}
   \begin{column}{0.33\textwidth}
-    \begin{itemize}
-    \item $f(x,y)=sqrt(x^2+y^2)-1$
-    \item $f(x,y)=maximum(abs(x),abs(y))-1$
-    \end{itemize}
+  \lstset{basicstyle=\ttfamily\scriptsize}
+    \begin{lstlisting}
+    f(x,y)=sqrt(x^2+y^2)-1
+    f(x,y)=maximum(
+      abs(x),abs(y)
+      )-1
+    \end{lstlisting}
   \end{column}
-  \begin{column}{0.50\textwidth}
-    \begin{itemize}
-    \item $f(x,y)=minimum(sqrt((x+0.25)^2+(y+0.25)^2)-1,maximum(abs(x-0.25),abs(y-0.25))-1)$
-    \end{itemize}
+  \begin{column}{0.60\textwidth}
+  \lstset{basicstyle=\ttfamily\scriptsize}
+    \begin{lstlisting}
+      f(x,y) = minimum(
+      sqrt((x+0.25)^2+(y+0.25)^2)-1,
+      maximum(abs(x-0.25),abs(y-0.25))-1
+      )
+    \end{lstlisting}
   \end{column}
 \end{columns}
 \begin{columns}
@@ -760,14 +770,20 @@ ImplicitCAD Project \\ % Your institution for the title page
 \end{columns}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Intersecting}
 \begin{columns}
   \begin{column}{0.75\textwidth}
+    \lstset{basicstyle=\ttfamily\scriptsize}
     \begin{itemize}
-    \item Taking the maximum of the objects
-    \item $maximum(sqrt((x+0.25)*(x+0.25)+(y+0.25)*(y+0.25))-1,maximum(abs(x-0.25),abs(y-0.25))-1)$
+    \item Taking the maximum of the two items gives the intersection
     \end{itemize}
+    \begin{lstlisting}
+      maximum(
+        sqrt((x+0.25)*(x+0.25)+(y+0.25)*(y+0.25))-1,
+        maximum(abs(x-0.25),abs(y-0.25))-1
+        )
+    \end{lstlisting}
   \end{column}
   \begin{column}{0.25\textwidth}
     \includegraphics[width=1.0\textwidth, right]{implicit_intersection_square_circle.jpg}
@@ -780,7 +796,7 @@ ImplicitCAD Project \\ % Your institution for the title page
 \begin{columns}
   \begin{column}{0.65\textwidth}
     \begin{itemize}
-    \item Taking the maximum of the item to be removed from, and the inverse of the items being removed
+    \item Taking the maximum of the item to be removed from, and the inverse of the items being removed gives the difference
     \item $maximum(sqrt((x+0.25)*(x+0.25)+(y+0.25)*(y+0.25))-1,-(maximum(abs(x-0.25),abs(y-0.25)))-1)$
     \end{itemize}
   \end{column}
