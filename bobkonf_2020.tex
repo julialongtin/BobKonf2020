@@ -80,7 +80,6 @@
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 \usepackage[export]{adjustbox}
 \usepackage{listings}
-
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
@@ -96,16 +95,24 @@ ImplicitCAD Project \\ % Your institution for the title page
 }
 \date{\today} % Date, can be changed to a custom date
 
+% disable page count
+\setbeamertemplate{page number in head/foot}{}
+
 \begin{document}
 
 \begin{frame}
 \titlepage % Print the title page as the first slide
+\begin{block}{Source Code}
+\begin{itemize}
+\item https://github.com/colah/ImplicitCAD/
+\end{itemize}
+\end{block}
 \end{frame}
 
-\begin{frame}
-\frametitle{Overview} % Table of contents slide, comment this block out to remove it
-\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
-\end{frame}
+%\begin{frame}
+%\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+%\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+%\end{frame}
 
 %----------------------------------------------------------------------------------------
 %	PRESENTATION SLIDES
@@ -120,23 +127,24 @@ ImplicitCAD Project \\ % Your institution for the title page
 \begin{itemize}
 \item Free Software Developer for 20+ years
   \begin{itemize}
-  \item Contributor to OpenEMR, FAI, TinTin++,...
+  \item Contributor to OpenEMR, FAI, TinTin++, LinuxPMI,...
   \end{itemize}
 \item Work at Wire.com
   \begin{itemize}
   \item The presented work has no affiliation with my employer
   \end{itemize}
-\item ImplicitCAD maintainer
+\item Maintainer of ImplicitCAD
+\item Author of HSlice
 \end{itemize}
 \end{frame}
 
 %------------------------------------------------
 
 \begin{frame}
+\frametitle{Who am I?}
 \begin{itemize}
 \item Have run two Hackerspaces
 \end{itemize}
-\frametitle{Who am I?}
 \begin{columns}
   \begin{column}{0.5\textwidth}
     \includegraphics[width=0.5\textwidth, right]{HacDC.svg.png}
@@ -146,7 +154,7 @@ ImplicitCAD Project \\ % Your institution for the title page
   \end{column}
 \end{columns}
 \begin{itemize}
-\item Spent 8+ Years teaching 10 hours a week
+\item Spent 8+ years teaching 10 hours a week
 \item Tested ImplicitCAD on the members at HacDC
 \end{itemize}
 \end{frame}
@@ -155,8 +163,11 @@ ImplicitCAD Project \\ % Your institution for the title page
 \frametitle{Who am I?}
 \begin{itemize}
 \item Transhumanist, 3D printer aficionado
+\begin{itemize}
+\item ... would love to be bio-printing ...
+\end{itemize}
 \item Scratch building mutant printers for 10+ years
-\item Created method for converting 3D prints to aluminium with microwaves
+\item Created method for converting 3D prints to aluminium with microwaves (see: 31c3)
 \end{itemize}
 \end{frame}
 
@@ -169,12 +180,12 @@ ImplicitCAD Project \\ % Your institution for the title page
 \frametitle{What is ImplicitCAD?}
 \begin{itemize}
 \item Programmatic 3D Modeling System
-\item Written in Haskell
-\item Licensed under the AGPLv3+
 \item Originally written by Christopher Olah in 2011
   \begin{itemize}
-  \item I Took over as maintainer in 2014
+  \item I took over as maintainer in 2014
   \end{itemize}
+\item Licensed under the AGPLv3+
+\item Written in Haskell
 \end{itemize}
 \begin{block}{Source Code}
 \begin{itemize}
@@ -202,7 +213,6 @@ ImplicitCAD Project \\ % Your institution for the title page
 
 %------------------------------------------------
 
-
 \subsection{Rendering Engine}
 \begin{frame}
 \frametitle{ImplicitCAD's Rendering Engine}
@@ -213,7 +223,7 @@ ImplicitCAD Project \\ % Your institution for the title page
 \end{itemize}
 \item Renders 2D: SVG, SCAD, PNG, DXF...
 \begin{itemize}
-\item Uses marching squares, or ray tracing depending on format
+\item Uses modified marching squares, or ray tracing depending on format
 \end{itemize}
 \end{itemize}
 \begin{columns}
@@ -233,22 +243,29 @@ ImplicitCAD Project \\ % Your institution for the title page
 \end{frame}
 
 \subsection{Scad Execution Engine}
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{ImplicitCAD's SCAD Execution Engine}
 \begin{itemize}
 \item OpenSCAD like, not quite OpenSCAD compatible
 \begin{itemize}
 \item Lack of a real SCAD standard allows us to experiment with the language
 \end{itemize}
-\item Leans toward more primitive elements, with more power
+\item Leans toward primitive elements with more power
 \end{itemize}
-\includegraphics[width=0.5\textwidth, center]{openscad-cylinder-text.png}
 \begin{columns}
   \begin{column}{0.5\textwidth}
-    \includegraphics[width=0.8\textwidth, left]{openscad-cylinder.png}
+  \lstset{basicstyle=\ttfamily\scriptsize}
+\begin{lstlisting}
+  cylinder(h=1,r=10);
+\end{lstlisting}
+    \includegraphics[width=0.9\textwidth, left]{openscad-cylinder.png}
   \end{column}
   \begin{column}{0.5\textwidth}
-    \includegraphics[width=0.8\textwidth, right]{implicitcad-cylinder.png}
+  \lstset{basicstyle=\ttfamily\scriptsize}
+\begin{lstlisting}
+  cylinder(h=1,r=10);
+\end{lstlisting}
+    \includegraphics[width=0.9\textwidth, right]{implicitcad-cylinder.png}
   \end{column}
 \end{columns}
 \end{frame}
@@ -261,7 +278,6 @@ ImplicitCAD Project \\ % Your institution for the title page
 \item Capable of SCAD execution without modeling
 \item Separable expression executor
 \end{itemize}
-\includegraphics[width=1.0\textwidth, center]{haskell_cylinder_example.png}
 \end{frame}
 
 \subsection{Executables}
@@ -270,7 +286,7 @@ ImplicitCAD Project \\ % Your institution for the title page
 \begin{itemize}
 \item extopenscad: SCAD engine in command line form
 \end{itemize}
-\includegraphics[width=1.0\textwidth, left]{extopenscad_example_003.png}
+\includegraphics[width=1.0\textwidth, left]{extopenscad_example.png}
 \begin{itemize}
 \item ImplicitSNAP: Engine backing the web site.
 \end{itemize}
@@ -292,6 +308,10 @@ ImplicitCAD Project \\ % Your institution for the title page
 \item MIT License
 \end{itemize}
 \end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Other SCAD Engines}
 \begin{block}{Curv - https://curv3d.org}
 \begin{itemize}
 \item Graphical Interface, GPU required
@@ -299,6 +319,23 @@ ImplicitCAD Project \\ % Your institution for the title page
 \item Uses maths based on ImplicitCAD
 \end{itemize}
 \end{block}
+\begin{block}{CadQuery - https://github.com/CadQuery/cadquery}
+\begin{itemize}
+\item Graphical Interface, GPU required
+\item Apache License
+\item Python based
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Other Python SCAD engines?}
+\begin{itemize}
+\item At least three rewrites of ImplicitCAD in Python
+\begin{itemize}
+\item All Non-Free, one in use by military...
+\end{itemize}
+\end{itemize}
 \end{frame}
 
 \section{Why ImplicitCAD?}
@@ -311,20 +348,39 @@ ImplicitCAD Project \\ % Your institution for the title page
 \includegraphics[width=0.5\textwidth, center]{website-simple_example_graphic.png}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Why ImplicitCAD?}
+  \lstset{basicstyle=\ttfamily\scriptsize}
 \begin{itemize}
-\item Haskell DSL
+\item Simple Haskell DSL
 \end{itemize}
-\includegraphics[width=1.0\textwidth, center]{haskell_example_000.png}
+\begin{lstlisting}
+  -- A simple cylinder
+  import Prelude (($))
+  import Graphics.Implicit(writeSTL, cylinder2)
+
+  main = writeSTL 0.2 ``cylinder_example.stl'' $ cylinder2 10 10 1
+\end{lstlisting}
+    \includegraphics[width=0.7\textwidth, center]{implicitcad-cylinder.png}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Why ImplicitCAD?}
 \begin{itemize}
 \item Nearly Haskell-Native intermediate state
 \end{itemize}
-\includegraphics[width=1.0\textwidth, center]{haskell_intermediate.png}
+\includegraphics[width=1.0\textwidth, center]{extopenscad-haskell_intermediate.png}
+\lstset{basicstyle=\ttfamily\scriptsize}
+\begin{lstlisting}
+  -- A simple cylinder
+  import Prelude (($))
+  import Graphics.Implicit
+
+  main = writeSTL 0.2 ``example.stl'' $
+    extrudeR 0.0 (differenceR 0.0 [translate (-10.0,-10.0) $
+                  rectR 0.0 (0.0,0.0) (20.0,20.0),
+                  circle 9.0]) 10.0
+\end{lstlisting}
 \end{frame}
 
 \begin{frame}
@@ -521,7 +577,7 @@ ImplicitCAD Project \\ % Your institution for the title page
 \frametitle{Flow Control}
 \begin{itemize}
 \item module ( ) \{ \}
-\item function () \{ \}
+\item function ( ) ...
 \item if ... then ... else
 \item for ( ) \{ \}
 \item include ...
@@ -545,20 +601,6 @@ ImplicitCAD Project \\ % Your institution for the title page
       disc_2d(diameter);
     }
     disc_3d(thickness=10, diameter=120);
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{SCAD Example: Disc}
-\includegraphics[width=0.5\textwidth, center]{disc_example.png}
-  \lstset{basicstyle=\ttfamily\scriptsize}
-    \begin{lstlisting}
-      module cylinder_3d(height, diameter){
-        linear_extrude(height){
-          circle(r=diameter/2);
-        }
-      }
-      cylinder_3d(height=10, diameter=120);
     \end{lstlisting}
 \end{frame}
 
@@ -772,8 +814,9 @@ ImplicitCAD Project \\ % Your institution for the title page
   \end{column}
 \end{columns}
 \begin{itemize}
-  \item $square (x=30,y=30,r=15)$ == Circle!
-  \item Rendering can be matched to your ability to print
+\item $square (x=30,y=30,r=15)$ == Circle!
+\item Most primitives support rounding
+\item Rendering can be matched to your ability to print
 \end{itemize}
 \end{frame}
 
@@ -798,9 +841,14 @@ ImplicitCAD Project \\ % Your institution for the title page
     \item Hard to reason about them
     \item Cannot print in intermediate form dump
     \end{itemize}
+  \item List comprehensions parallelize well
+  \item ... Sadly little overlap between Haskellers and 3D modelers
+  \item Always telling users to use ``+RTS -N -qg'' is painful
   \end{itemize}
-  \begin{columns}
-    \begin{column}{0.7\textwidth}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Using Functions}
       \lstset{basicstyle=\ttfamily\scriptsize}
       \begin{lstlisting}
         linear_extrude (height = 40, twist(h) = 35*cos(h*2*pi/60))
@@ -812,11 +860,17 @@ ImplicitCAD Project \\ % Your institution for the title page
           translate ([0,-22]) circle (10);
         }
       \end{lstlisting}
-    \end{column}
-    \begin{column}{0.2\textwidth}
-      \includegraphics[width=0.9\textwidth, right]{website-example_object.png}
-    \end{column}
-  \end{columns}
+      \includegraphics[width=0.5\textwidth, center]{website-example_object.png}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{linear\_extrude functional arguments}
+\begin{itemize}
+\item $height(x,y) = value$
+\item $twist(h) = value$
+\item $scale(h) = value$
+\item $translate(h) = (x,y)$
+\end{itemize}
 \end{frame}
 
 \section{Real World Example}
@@ -852,6 +906,11 @@ ImplicitCAD Project \\ % Your institution for the title page
 \includegraphics[width=0.7\textwidth, center]{robert_mark-cathedral.png}
 \end{frame}
 
+\begin{frame}
+\frametitle{Rounding}
+\includegraphics[width=0.7\textwidth, center]{cura-bearing_holder.png}
+\end{frame}
+
 \section{Future Functionality}
 \begin{frame}[fragile]
 \frametitle{Future ImplicitCAD Functionality}
@@ -866,8 +925,58 @@ ImplicitCAD Project \\ % Your institution for the title page
 \end{lstlisting}
 \end{frame}
 
+\section{Other Software}
+
 \begin{frame}
-\frametitle{Fin}
+  \frametitle{What is HSlice?}
+\begin{itemize}
+\item Another Slicer!
+\item Originally written by Catherine Moresco and Noah Halford in 2016
+  \begin{itemize}
+  \item I took over as lead developer last year
+  \end{itemize}
+\item Licensed under the AGPLv3+
+\item Written in Haskell
+\item Goals:
+  \begin{itemize}
+  \item Support slicing for printers with combined linear and rotational motion
+  \item Part of my effort to have a 100 percent haskell based 3D printing stack 
+  \end{itemize}
+\item Abuses the expression evaluation from ImplicitCAD..
+\end{itemize}
+\begin{block}{Source Code}
+\begin{itemize}
+\item https://github.com/julialongtin/HSlice/
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Functional OpenSCAD}
+\includegraphics[width=0.7\textwidth, center]{openscad-functional.png}
+\end{frame}
+
+\begin{frame}
+  \frametitle{ExplicitCAD}
+\begin{itemize}
+\item A graphical front end for ImplicitCAD
+\item Originally written by Kliment
+\item Licensed under the GPLv3
+\item Written in C++
+\item Goals:
+  \begin{itemize}
+  \item Give ImplicitCAD a better look and feel for non-command line users
+  \end{itemize}
+\end{itemize}
+\begin{block}{Source Code}
+\begin{itemize}
+\item https://github.com/kliment/explicitcad
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{-Fin-}
 \Huge{\centerline{Questions?}}
 \end{frame}
 
